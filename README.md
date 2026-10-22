@@ -10,8 +10,6 @@ Secrets:
 
 - `MEMBERS_ENDPOINT` — `{ "members": 536, "provisionalMembers": 7 }` を返す会員管理連携URL
 - `MEMBERS_TOKEN` — 上記URLのBearerトークン（不要なら空）
-- `GOOGLE_PLACES_API_KEY`
-- `GOOGLE_PLACE_ID`
 - `INSTAGRAM_ACCESS_TOKEN`
 - `INSTAGRAM_USER_ID`
 - `LINEWORKS_CLIENT_ID`

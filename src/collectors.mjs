@@ -8,14 +8,6 @@ export async function collectMembers(env, request=fetch) {
   return {members:Number(data.members), provisionalMembers:Number(data.provisionalMembers)};
 }
 
-export async function collectReviews(env, request=fetch) {
-  if (!env.GOOGLE_PLACES_API_KEY || !env.GOOGLE_PLACE_ID) return {};
-  const res = await request(`https://places.googleapis.com/v1/places/${encodeURIComponent(env.GOOGLE_PLACE_ID)}`, {headers:{"X-Goog-Api-Key":env.GOOGLE_PLACES_API_KEY,"X-Goog-FieldMask":"userRatingCount"}});
-  if (!res.ok) throw new Error(`reviews:${res.status}`);
-  const data = await res.json();
-  return {reviews:Number(data.userRatingCount)};
-}
-
 export async function collectInstagram(env, now=new Date(), request=fetch) {
   if (!env.INSTAGRAM_ACCESS_TOKEN || !env.INSTAGRAM_USER_ID) return {};
   const params = new URLSearchParams({fields:"followers_count,media.limit(50){timestamp}",access_token:env.INSTAGRAM_ACCESS_TOKEN});

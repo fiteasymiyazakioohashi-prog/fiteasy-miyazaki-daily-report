@@ -1,5 +1,5 @@
 import {readFile,writeFile,mkdir} from "node:fs/promises";
-import {collectMembers,collectReviews,collectInstagram,collectTikTok} from "./collectors.mjs";
+import {collectMembers,collectInstagram,collectTikTok} from "./collectors.mjs";
 import {formatReport} from "./report.mjs";
 import {sendLineWorks} from "./lineworks.mjs";
 
@@ -7,7 +7,7 @@ const env=process.env, now=new Date();
 let previous={};
 try{previous=JSON.parse(await readFile("data/latest.json","utf8"));}catch{}
 const values={};
-const jobs=[()=>collectMembers(env),()=>collectReviews(env),()=>collectInstagram(env,now),()=>collectTikTok(env,now)];
+const jobs=[()=>collectMembers(env),()=>collectInstagram(env,now),()=>collectTikTok(env,now)];
 for(const job of jobs){
   try{Object.assign(values,await job());}catch(e){console.error(e instanceof Error?e.message:String(e));}
 }

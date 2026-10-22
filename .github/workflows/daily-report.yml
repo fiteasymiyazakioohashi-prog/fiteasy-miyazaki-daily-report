@@ -26,8 +26,6 @@ jobs:
         env:
           MEMBERS_ENDPOINT: ${{ secrets.MEMBERS_ENDPOINT }}
           MEMBERS_TOKEN: ${{ secrets.MEMBERS_TOKEN }}
-          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-          GOOGLE_PLACE_ID: ${{ secrets.GOOGLE_PLACE_ID }}
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
           TIKTOK_USERNAME: ${{ vars.TIKTOK_USERNAME }}
