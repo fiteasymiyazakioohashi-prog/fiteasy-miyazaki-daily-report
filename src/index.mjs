@@ -2,7 +2,7 @@ import {readFile,writeFile,mkdir} from "node:fs/promises";
 import {collectMembers,collectInstagram,collectTikTok} from "./collectors.mjs";
 import {formatReport} from "./report.mjs";
 import {sendLineWorks} from "./lineworks.mjs";
-import {collectInstagramInsights,formatInstagramInsightsCsv} from "./instagram-insights.mjs";
+import {collectInstagramInsights,formatInstagramInsightsCsv,formatInstagramInsightsMarkdown} from "./instagram-insights.mjs";
 
 const env=process.env, now=new Date();
 let previous={};
@@ -19,5 +19,8 @@ await mkdir("data",{recursive:true});
 await writeFile("data/latest.json",JSON.stringify({...values,collectedAt:now.toISOString()},null,2)+"\n");
 try {
   const insights=await collectInstagramInsights(env);
-  if(insights.length)await writeFile("data/instagram-insights.csv",formatInstagramInsightsCsv(insights,now.toISOString()));
+  if(insights.length){
+    await writeFile("data/instagram-insights.csv",formatInstagramInsightsCsv(insights,now.toISOString()));
+    await writeFile("data/instagram-insights.md",formatInstagramInsightsMarkdown(insights,now.toISOString()));
+  }
 } catch(e) { console.error(e instanceof Error?e.message:String(e)); }
