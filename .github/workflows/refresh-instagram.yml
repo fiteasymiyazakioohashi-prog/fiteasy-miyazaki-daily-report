@@ -1,1 +1,33 @@
+name: Refresh Instagram insights
 
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-insights-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collect Instagram insights
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: node src/refresh-instagram.mjs
+      - name: Publish updated insights
+        run: |
+          git config user.name "instagram-insights-bot"
+          git config user.email "instagram-insights-bot@users.noreply.github.com"
+          git add -f data/instagram-insights.csv data/instagram-insights.md docs/index.html
+          git diff --cached --quiet || git commit -m "chore: refresh Instagram insights"
+          git push
