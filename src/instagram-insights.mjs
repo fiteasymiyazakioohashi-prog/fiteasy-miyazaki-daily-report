@@ -12,7 +12,7 @@ const csv = value => {
 
 async function insight(mediaId, metric, token, request) {
   const params = new URLSearchParams({metric, access_token:token});
-  const response = await request(`https://graph.facebook.com/${API_VERSION}/${mediaId}/insights?${params}`);
+  const response = await request(`https://graph.instagram.com/${API_VERSION}/${mediaId}/insights?${params}`);
   if (!response.ok) return null;
   const body = await response.json();
   const item = body.data?.[0];
@@ -27,7 +27,7 @@ export async function collectInstagramInsights(env, request=fetch) {
     limit:"100",
     access_token:env.INSTAGRAM_ACCESS_TOKEN
   });
-  const response = await request(`https://graph.facebook.com/${API_VERSION}/${encodeURIComponent(env.INSTAGRAM_USER_ID)}/media?${params}`);
+  const response = await request(`https://graph.instagram.com/${API_VERSION}/${encodeURIComponent(env.INSTAGRAM_USER_ID)}/media?${params}`);
   if (!response.ok) throw new Error(`instagram-media:${response.status}`);
   const body = await response.json();
   const rows=[];
