@@ -40,6 +40,6 @@ jobs:
         run: |
           git config user.name "daily-report-bot"
           git config user.email "daily-report-bot@users.noreply.github.com"
-          git add -f data/latest.json data/instagram-insights.csv
+          git add -f data/latest.json data/instagram-insights.csv data/instagram-insights.md
           git diff --cached --quiet || git commit -m "chore: update daily report counters"
           git push
