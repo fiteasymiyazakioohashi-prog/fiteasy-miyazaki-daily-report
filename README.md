@@ -2,6 +2,8 @@
 
 GitHub Actionsが毎日20:00（日本時間）に数値を取得し、自分宛てLINE WORKSへ日報を送信します。MacやCodexを起動しておく必要はありません。
 
+Instagramのフィード・リールは投稿別に取得し、`data/instagram-insights.csv`へ最新のインサイト一覧を保存します。Git履歴から過去日の状態も確認できます。
+
 ## GitHub設定
 
 リポジトリの **Settings → Secrets and variables → Actions** に以下を登録します。
