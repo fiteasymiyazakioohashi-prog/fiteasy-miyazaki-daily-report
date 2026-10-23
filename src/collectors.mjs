@@ -11,7 +11,7 @@ export async function collectMembers(env, request=fetch) {
 export async function collectInstagram(env, now=new Date(), request=fetch) {
   if (!env.INSTAGRAM_ACCESS_TOKEN || !env.INSTAGRAM_USER_ID) return {};
   const params = new URLSearchParams({fields:"followers_count,media.limit(50){timestamp}",access_token:env.INSTAGRAM_ACCESS_TOKEN});
-  const res = await request(`https://graph.facebook.com/v24.0/${encodeURIComponent(env.INSTAGRAM_USER_ID)}?${params}`);
+  const res = await request(`https://graph.instagram.com/v24.0/${encodeURIComponent(env.INSTAGRAM_USER_ID)}?${params}`);
   if (!res.ok) throw new Error(`instagram:${res.status}`);
   const data = await res.json();
   const day=jstDay(now), media=Array.isArray(data.media?.data)?data.media.data:[];
