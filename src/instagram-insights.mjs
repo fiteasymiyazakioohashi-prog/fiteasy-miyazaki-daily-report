@@ -1,4 +1,5 @@
 const API_VERSION = "v24.0";
+const GRAPH_BASE_URL = "https://graph.instagram.com";
 
 const metrics = [
   "views", "reach", "saved", "shares", "total_interactions",
@@ -12,7 +13,7 @@ const csv = value => {
 
 async function insight(mediaId, metric, token, request) {
   const params = new URLSearchParams({metric, access_token:token});
-  const response = await request(`https://graph.instagram.com/${API_VERSION}/${mediaId}/insights?${params}`);
+  const response = await request(`${GRAPH_BASE_URL}/${API_VERSION}/${mediaId}/insights?${params}`);
   if (!response.ok) return null;
   const body = await response.json();
   const item = body.data?.[0];
@@ -27,7 +28,7 @@ export async function collectInstagramInsights(env, request=fetch) {
     limit:"100",
     access_token:env.INSTAGRAM_ACCESS_TOKEN
   });
-  const response = await request(`https://graph.instagram.com/${API_VERSION}/${encodeURIComponent(env.INSTAGRAM_USER_ID)}/media?${params}`);
+  const response = await request(`${GRAPH_BASE_URL}/${API_VERSION}/${encodeURIComponent(env.INSTAGRAM_USER_ID)}/media?${params}`);
   if (!response.ok) throw new Error(`instagram-media:${response.status}`);
   const body = await response.json();
   const rows=[];
@@ -55,4 +56,22 @@ export function formatInstagramInsightsCsv(rows, collectedAt=new Date().toISOStr
     row.views,row.reach,row.saved,row.shares,row.total_interactions,row.plays,row.total_watch_time,row.average_watch_time
   ].map(csv).join(","));
   return [columns.join(","),...lines].join("\n")+"\n";
+}
+
+const md = value => String(value ?? "-").replaceAll("|","\\|").replaceAll(/\s+/g," ").trim();
+const number = value => typeof value === "number" ? value.toLocaleString("ja-JP") : "-";
+
+export function formatInstagramInsightsMarkdown(rows, collectedAt=new Date().toISOString()) {
+  const updated=new Intl.DateTimeFormat("ja-JP",{timeZone:"Asia/Tokyo",dateStyle:"long",timeStyle:"short"}).format(new Date(collectedAt));
+  const lines=rows.map((row,index)=>{
+    const date=new Intl.DateTimeFormat("ja-JP",{timeZone:"Asia/Tokyo",month:"numeric",day:"numeric"}).format(new Date(row.publishedAt));
+    const caption=md(row.caption).slice(0,42)+(md(row.caption).length>42?"…":"");
+    return `| ${index+1} | ${date} | ${md(row.type)} | [投稿を見る](${row.permalink}) | ${caption} | ${number(row.views)} | ${number(row.reach)} | ${number(row.likeCount)} | ${number(row.commentCount)} | ${number(row.saved)} | ${number(row.shares)} | ${number(row.total_interactions)} |`;
+  });
+  return [
+    "# Instagram 投稿別インサイト", "", `最終更新：${updated}　／　取得件数：${rows.length}件`, "",
+    "| # | 投稿日 | 種類 | 投稿 | 内容 | 閲覧数 | リーチ | いいね | コメント | 保存 | シェア | 反応数 |",
+    "|---:|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|", ...lines, "",
+    "> 数値が取得できない項目は「-」と表示します。詳細データは `instagram-insights.csv` に保存されています。", ""
+  ].join("\n");
 }
