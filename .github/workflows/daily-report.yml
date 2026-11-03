@@ -2,8 +2,8 @@ name: Daily report to LINE WORKS
 
 on:
   schedule:
-    # 20:00 Asia/Tokyo = 11:00 UTC
-    - cron: "0 11 * * *"
+    # 19:30 Asia/Tokyo = 10:30 UTC
+    - cron: "30 10 * * *"
   workflow_dispatch:
 
 permissions:
