@@ -41,5 +41,11 @@ export async function collectTikTok(env, now=new Date(), request=fetch) {
   const html=await res.text();
   const stats=html.match(/"followerCount":(\d+)/), day=jstDay(now);
   const timestamps=[...html.matchAll(/"createTime":"?(\d{10})"?/g)].map(m=>new Date(Number(m[1])*1000));
-  return {tiktokFollowers:stats?Number(stats[1]):null,tiktokPostsToday:[...new Set(timestamps.filter(d=>jstDay(d)===day).map(d=>d.getTime()))].length};
+  return {
+    tiktokFollowers:stats?Number(stats[1]):null,
+    // TikTok may omit post data for automated requests. Do not treat that as zero.
+    tiktokPostsToday:timestamps.length
+      ? [...new Set(timestamps.filter(d=>jstDay(d)===day).map(d=>d.getTime()))].length
+      : null
+  };
 }
