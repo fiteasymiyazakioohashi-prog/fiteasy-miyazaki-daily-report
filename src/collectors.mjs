@@ -10,12 +10,28 @@ export async function collectMembers(env, request=fetch) {
 
 export async function collectInstagram(env, now=new Date(), request=fetch) {
   if (!env.INSTAGRAM_ACCESS_TOKEN || !env.INSTAGRAM_USER_ID) return {};
-  const params = new URLSearchParams({fields:"followers_count,media.limit(50){timestamp}",access_token:env.INSTAGRAM_ACCESS_TOKEN});
-  const res = await request(`https://graph.instagram.com/v24.0/${encodeURIComponent(env.INSTAGRAM_USER_ID)}?${params}`);
+  const userId=encodeURIComponent(env.INSTAGRAM_USER_ID);
+  const params = new URLSearchParams({fields:"followers_count,follows_count,media.limit(50){timestamp}",access_token:env.INSTAGRAM_ACCESS_TOKEN});
+  const res = await request(`https://graph.instagram.com/v24.0/${userId}?${params}`);
   if (!res.ok) throw new Error(`instagram:${res.status}`);
   const data = await res.json();
   const day=jstDay(now), media=Array.isArray(data.media?.data)?data.media.data:[];
-  return {instagramFollowers:Number(data.followers_count),instagramPostsToday:media.filter(x=>x.timestamp&&jstDay(new Date(x.timestamp))===day).length};
+  let instagramStoriesToday=null;
+  try{
+    const storyParams=new URLSearchParams({fields:"timestamp",access_token:env.INSTAGRAM_ACCESS_TOKEN});
+    const storyRes=await request(`https://graph.instagram.com/v24.0/${userId}/stories?${storyParams}`);
+    if(storyRes.ok){
+      const stories=await storyRes.json();
+      const items=Array.isArray(stories.data)?stories.data:[];
+      instagramStoriesToday=items.filter(x=>x.timestamp&&jstDay(new Date(x.timestamp))===day).length;
+    }
+  }catch{}
+  return {
+    instagramFollowing:Number.isFinite(Number(data.follows_count))?Number(data.follows_count):null,
+    instagramFollowers:Number(data.followers_count),
+    instagramPostsToday:media.filter(x=>x.timestamp&&jstDay(new Date(x.timestamp))===day).length,
+    instagramStoriesToday
+  };
 }
 
 export async function collectTikTok(env, now=new Date(), request=fetch) {
