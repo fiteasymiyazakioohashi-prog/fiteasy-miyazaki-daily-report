@@ -1,17 +1,17 @@
 # Instagram 投稿別インサイト
 
-最終更新：2026年11月3日 20:25　／　取得件数：51件
+最終更新：2026年11月3日 20:35　／　取得件数：51件
 
 | # | 投稿日 | 種類 | 投稿 | 内容 | 閲覧数 | リーチ | いいね | コメント | 保存 | シェア | 反応数 |
 |---:|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 11/3 | FEED | [投稿を見る](https://www.instagram.com/p/DfRJvoutxlA/) | 明日17時30分頃からトレーニングセミナーを開催いたします✨ スタッフがマシンの使い… | 281 | 113 | 1 | 0 | 0 | 0 | 2 |
-| 2 | 11/3 | FEED | [投稿を見る](https://www.instagram.com/p/DfQ-aD8N1JX/) | テレビで取材していただきました📺✨ FIT-EASY 宮崎大橋店の魅力をたっぷりと… | 563 | 239 | 9 | 0 | 1 | 0 | 12 |
+| 1 | 11/3 | FEED | [投稿を見る](https://www.instagram.com/p/DfRJvoutxlA/) | 明日17時30分頃からトレーニングセミナーを開催いたします✨ スタッフがマシンの使い… | 284 | 113 | 1 | 0 | 0 | 0 | 2 |
+| 2 | 11/3 | FEED | [投稿を見る](https://www.instagram.com/p/DfQ-aD8N1JX/) | テレビで取材していただきました📺✨ FIT-EASY 宮崎大橋店の魅力をたっぷりと… | 569 | 239 | 9 | 0 | 1 | 0 | 12 |
 | 3 | 11/2 | FEED | [投稿を見る](https://www.instagram.com/p/DfOnSkrGPzQ/) | 📺✨ テレビ放送のお知らせ！ なんと！フィットイージー宮崎大橋店が MRT宮崎放送… | 700 | 347 | 10 | 0 | 2 | 1 | 14 |
 | 4 | 11/2 | FEED | [投稿を見る](https://www.instagram.com/p/DfOYvCZNu1j/) | 【女性専用エリアへの男性スタッフ等の入室について】 いつもFIT-EASY宮崎大橋店… | 422 | 196 | 2 | 0 | 0 | 0 | 2 |
 | 5 | 11/2 | FEED | [投稿を見る](https://www.instagram.com/p/DfOYqRGNxMl/) | 【女性予約制個室をご利用の皆さまへ🌿】 いつもFIT-EASY宮崎大橋店をご利用い… | 350 | 152 | 1 | 0 | 0 | 0 | 1 |
-| 6 | 11/1 | FEED | [投稿を見る](https://www.instagram.com/p/DfMhp3FNlmh/) | 🍁11月 入会キャンペーン🍁 FIT-EASY宮崎大橋店で、秋からジム習慣をはじ… | 336 | 149 | 3 | 0 | 1 | 1 | 6 |
-| 7 | 10/31 | REELS | [投稿を見る](https://www.instagram.com/reel/DfKIDFTNjzz/) |  | 342 | 227 | 5 | 0 | 1 | 0 | 6 |
-| 8 | 10/30 | REELS | [投稿を見る](https://www.instagram.com/reel/DfHX582NP0o/) | 📣 特別入会キャンペーン実施中！💪✨ フィットイージー宮崎大橋店では、お得に入会… | 1,338 | 668 | 20 | 0 | 3 | 0 | 24 |
+| 6 | 11/1 | FEED | [投稿を見る](https://www.instagram.com/p/DfMhp3FNlmh/) | 🍁11月 入会キャンペーン🍁 FIT-EASY宮崎大橋店で、秋からジム習慣をはじ… | 337 | 149 | 3 | 0 | 1 | 1 | 6 |
+| 7 | 10/31 | REELS | [投稿を見る](https://www.instagram.com/reel/DfKIDFTNjzz/) |  | 342 | 229 | 5 | 0 | 1 | 0 | 6 |
+| 8 | 10/30 | REELS | [投稿を見る](https://www.instagram.com/reel/DfHX582NP0o/) | 📣 特別入会キャンペーン実施中！💪✨ フィットイージー宮崎大橋店では、お得に入会… | 1,340 | 669 | 20 | 0 | 3 | 0 | 24 |
 | 9 | 10/28 | REELS | [投稿を見る](https://www.instagram.com/reel/DfCQjjCNCG5/) | FIT-EASYvlog ~♪ 今日はFIT-EASY宮崎大橋店で過ごす1日をVlo… | 694 | 409 | 8 | 0 | 0 | 0 | 8 |
 | 10 | 10/24 | FEED | [投稿を見る](https://www.instagram.com/p/De32cIlmIKL/) | 🔥 永久割キャンペーン終了間近！！ 🔥 フィットイージー宮崎大橋店からのお知らせ… | 595 | 255 | 4 | 0 | 1 | 2 | 8 |
 | 11 | 10/24 | FEED | [投稿を見る](https://www.instagram.com/p/De32U32GCC1/) | 🔥 今なら最大17,886円が0円に！！ 🔥 フィットイージー宮崎大橋店から超お… | 692 | 300 | 6 | 0 | 2 | 2 | 11 |
@@ -19,9 +19,9 @@
 | 13 | 10/23 | REELS | [投稿を見る](https://www.instagram.com/reel/De1dmJgNGyC/) | サウナに新アイテム〜！✌️ | 2,307 | 1,335 | 10 | 0 | 1 | 0 | 12 |
 | 14 | 10/23 | REELS | [投稿を見る](https://www.instagram.com/reel/De1YwrbN0c8/) | マシンの紹介です🙌🙌🙌🙌 | 1,648 | 807 | 16 | 0 | 0 | 0 | 16 |
 | 15 | 10/22 | REELS | [投稿を見る](https://www.instagram.com/reel/DeyRtp5xtoS/) | コメントでジムマシンの使い方わからなかったエピソードトーク教えて | 2,355 | 1,240 | 11 | 0 | 1 | 0 | 12 |
-| 16 | 10/22 | REELS | [投稿を見る](https://www.instagram.com/reel/DeyO3WlRLJ_/) | ここ、実はジムなんです。🧖‍♂️✨ フィットイージー宮崎大橋店のサウナをご紹介🎥… | 761 | 456 | 9 | 0 | 1 | 0 | 10 |
+| 16 | 10/22 | REELS | [投稿を見る](https://www.instagram.com/reel/DeyO3WlRLJ_/) | ここ、実はジムなんです。🧖‍♂️✨ フィットイージー宮崎大橋店のサウナをご紹介🎥… | 762 | 456 | 9 | 0 | 1 | 0 | 10 |
 | 17 | 10/21 | FEED | [投稿を見る](https://www.instagram.com/p/DewLaacNJzS/) |  | 660 | 293 | 6 | 0 | 0 | 0 | 6 |
-| 18 | 10/20 | REELS | [投稿を見る](https://www.instagram.com/reel/Detp08QNj41/) | ご使用後は、必ず元の位置にお戻しください。 皆さまが気持ちよくご利用いただけるよう、… | 1,829 | 1,014 | 11 | 0 | 1 | 1 | 13 |
+| 18 | 10/20 | REELS | [投稿を見る](https://www.instagram.com/reel/Detp08QNj41/) | ご使用後は、必ず元の位置にお戻しください。 皆さまが気持ちよくご利用いただけるよう、… | 1,830 | 1,014 | 11 | 0 | 1 | 1 | 13 |
 | 19 | 10/20 | REELS | [投稿を見る](https://www.instagram.com/reel/DetoWDKN11e/) | 🏋️‍♂️✨ FIT-EASY 宮崎大橋店 トレーニングだけじゃない！ 楽しみなが… | 2,208 | 1,056 | 25 | 0 | 1 | 0 | 26 |
 | 20 | 10/18 | FEED | [投稿を見る](https://www.instagram.com/p/Deob9qMtMHL/) | トイレのご利用についてのお願い いつもフィットイージーをご利用いただき、誠にありがと… | 727 | 348 | 3 | 0 | 0 | 0 | 3 |
 | 21 | 10/18 | REELS | [投稿を見る](https://www.instagram.com/reel/DeoWAjnxT3Q/) | こんにちは！フィットイージー宮崎大橋店です！ 🥤 今回はプロテインサーバーの使い方… | 1,014 | 683 | 6 | 0 | 0 | 0 | 7 |
@@ -35,7 +35,7 @@
 | 29 | 10/4 | REELS | [投稿を見る](https://www.instagram.com/reel/DeDdCKSpdW4/) | 🔥 最新のSTAR TRAC（スタートラック）トレッドミル導入！ 🔥 フィットイ… | 991 | 547 | 8 | 0 | 0 | 2 | 11 |
 | 30 | 10/4 | REELS | [投稿を見る](https://www.instagram.com/reel/DeDc99FJQUc/) | 🔥 NAUTILUS（ノーチラス）マシン導入 🔥 フィットイージー宮崎大橋店では… | 1,145 | 667 | 9 | 0 | 4 | 0 | 13 |
 | 31 | 10/3 | REELS | [投稿を見る](https://www.instagram.com/reel/DeAzVI6N9CJ/) | 背中を追い込むなら、これ🔥 「M-TORTURE HIGH ROW」は、上から引き… | 1,476 | 903 | 11 | 0 | 2 | 0 | 13 |
-| 32 | 10/3 | REELS | [投稿を見る](https://www.instagram.com/reel/DeAzI1ht1Uc/) | 脚を本気で鍛えるなら🔥 M-TORTURE HACK SQUAT ハックスクワット… | 1,103 | 589 | 16 | 0 | 0 | 0 | 16 |
+| 32 | 10/3 | REELS | [投稿を見る](https://www.instagram.com/reel/DeAzI1ht1Uc/) | 脚を本気で鍛えるなら🔥 M-TORTURE HACK SQUAT ハックスクワット… | 1,105 | 589 | 16 | 0 | 0 | 0 | 16 |
 | 33 | 10/3 | REELS | [投稿を見る](https://www.instagram.com/reel/DeAy2DGNBJ6/) | 胸の上部を狙って鍛えるなら🔥 M-TORTURE INCLINE CHEST PR… | 880 | 592 | 13 | 0 | 1 | 0 | 15 |
 | 34 | 10/2 | REELS | [投稿を見る](https://www.instagram.com/reel/Dd-Y1PnJgZ2/) | 🔥 PEC DEC FLY & REAR DELTOID 🔥 1台で胸と肩の後ろ… | 1,046 | 642 | 17 | 0 | 2 | 0 | 20 |
 | 35 | 10/2 | REELS | [投稿を見る](https://www.instagram.com/reel/Dd-Yx_KJjTn/) | 🔥 SEATED CHEST PRESS 🔥 胸をしっかり鍛えたい方におすすめの… | 1,025 | 678 | 12 | 0 | 2 | 0 | 15 |
