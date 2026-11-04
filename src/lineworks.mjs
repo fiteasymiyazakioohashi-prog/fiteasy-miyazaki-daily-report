@@ -1,6 +1,19 @@
 import {createPrivateKey, sign} from "node:crypto";
 
 const b64=v=>Buffer.from(JSON.stringify(v)).toString("base64url");
+const excludedNames=new Set(["濵島陸人"]);
+const displayName=user=>`${user.userName?.lastName??""}${user.userName?.firstName??""}`.replaceAll(" ","");
+export function selectRecipientUserIds(users){
+  const ids=[],seenNames=new Set();
+  for(const user of users??[]){
+    if(!user.userId||user.isDeleted||user.isSuspended||user.isPending)continue;
+    const name=displayName(user);
+    if(excludedNames.has(name)||(name&&seenNames.has(name)))continue;
+    if(name)seenNames.add(name);
+    ids.push(user.userId);
+  }
+  return ids;
+}
 export async function sendLineWorks(env,text,request=fetch){
   const required=["LINEWORKS_CLIENT_ID","LINEWORKS_CLIENT_SECRET","LINEWORKS_SERVICE_ACCOUNT","LINEWORKS_PRIVATE_KEY","LINEWORKS_BOT_ID"];
   for(const k of required)if(!env[k])throw new Error(`missing:${k}`);
@@ -18,9 +31,7 @@ export async function sendLineWorks(env,text,request=fetch){
     const usersRes=await request(`https://www.worksapis.com/v1.0/users?${params}`,{headers});
     if(!usersRes.ok)throw new Error(`lineworks-users:${usersRes.status}:${await usersRes.text()}`);
     const data=await usersRes.json();
-    for(const user of data.users??[]){
-      if(user.userId&&!user.isDeleted&&!user.isSuspended&&!user.isPending)userIds.push(user.userId);
-    }
+    userIds.push(...selectRecipientUserIds(data.users).filter(id=>!userIds.includes(id)));
     cursor=data.responseMetaData?.nextCursor??"";
   } while(cursor);
   if(!userIds.length)throw new Error("lineworks-users:empty");
