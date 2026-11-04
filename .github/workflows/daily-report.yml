@@ -4,6 +4,8 @@ on:
   schedule:
     # 19:30 Asia/Tokyo = 10:30 UTC
     - cron: "30 10 * * *"
+    # 19:50の予備実行。送信済みならプログラム側で終了する
+    - cron: "50 10 * * *"
   workflow_dispatch:
 
 permissions:
