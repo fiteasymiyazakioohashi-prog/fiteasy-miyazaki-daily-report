@@ -8,5 +8,5 @@ export function formatReport(date, values, previous = {}) {
   const value=(number,unit)=>number == null ? "取得できませんでした" : `${number}${unit}`;
   const igFollowers=values.instagramFollowers == null ? "取得できませんでした" : `${values.instagramFollowers}人${delta(values.instagramFollowers,previous.instagramFollowers)}`;
   const ttFollowers=values.tiktokFollowers == null ? "取得できませんでした" : `${values.tiktokFollowers}件${delta(values.tiktokFollowers,previous.tiktokFollowers,"件")}`;
-  return `お疲れ様です。\n${date.getMonth()+1}/${date.getDate()}の報告です。\nインスタ\nフォローした数：30人\nインスタ投稿：${value(values.instagramPostsToday,"件")}\nストーリー投稿：${value(values.instagramStoriesToday,"件")}\nフォロワー数：${igFollowers}\nティックトック\n投稿：${value(values.tiktokPostsToday,"件")}\nフォロワー数：${ttFollowers}\nよろしくお願いいたします。`;
+  return `お疲れ様です。\n${date.getMonth()+1}/${date.getDate()}の報告です。\nInstagram\nフォローした数：30人\nInstagram投稿：${value(values.instagramPostsToday,"件")}\nストーリー投稿：${value(values.instagramStoriesToday,"件")}\nフォロワー数：${igFollowers}\nTikTok\n投稿：${value(values.tiktokPostsToday,"件")}\nフォロワー数：${ttFollowers}\nよろしくお願いいたします。`;
 }
