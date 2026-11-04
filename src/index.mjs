@@ -3,11 +3,15 @@ import {collectMembers,collectInstagram,collectTikTok} from "./collectors.mjs";
 import {formatReport} from "./report.mjs";
 import {sendLineWorks} from "./lineworks.mjs";
 import {collectInstagramInsights,formatInstagramInsightsCsv,formatInstagramInsightsMarkdown,formatInstagramInsightsHtml} from "./instagram-insights.mjs";
-import {previousDayValues,recordDay} from "./history.mjs";
+import {jstDateKey,previousDayValues,recordDay} from "./history.mjs";
 
 const env=process.env, now=new Date();
 let history={};
 try{history=JSON.parse(await readFile("data/history.json","utf8"));}catch{}
+if(env.GITHUB_EVENT_NAME==="schedule"&&history[jstDateKey(now)]?.sentAt){
+  console.log("本日分は送信済みのため、予備実行を終了します");
+  process.exit(0);
+}
 const previous=previousDayValues(history,now);
 const values={};
 const jobs=[()=>collectMembers(env),()=>collectInstagram(env,now),()=>collectTikTok(env,now)];
@@ -20,7 +24,7 @@ if(env.DRY_RUN!=="1")await sendLineWorks(env,text);
 await mkdir("data",{recursive:true});
 await mkdir("docs",{recursive:true});
 await writeFile("data/latest.json",JSON.stringify({...values,collectedAt:now.toISOString()},null,2)+"\n");
-await writeFile("data/history.json",JSON.stringify(recordDay(history,now,values),null,2)+"\n");
+await writeFile("data/history.json",JSON.stringify(recordDay(history,now,{...values,sentAt:now.toISOString()}),null,2)+"\n");
 try {
   const insights=await collectInstagramInsights(env);
   if(insights.length){
