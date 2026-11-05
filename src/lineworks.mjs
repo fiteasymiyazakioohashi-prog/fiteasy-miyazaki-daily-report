@@ -24,7 +24,9 @@ export async function sendLineWorks(env,text,request=fetch){
   const {access_token}=await tokenRes.json();
   const headers={Authorization:`Bearer ${access_token}`};
   const userIds=[];
-  if(env.GITHUB_EVENT_NAME==="workflow_dispatch"&&env.LINEWORKS_USER_ID){
+  const manual=env.GITHUB_EVENT_NAME==="workflow_dispatch";
+  const scope=manual?(env.LINEWORKS_RECIPIENT_SCOPE||"owner"):"all";
+  if(scope==="owner"&&env.LINEWORKS_USER_ID){
     userIds.push(env.LINEWORKS_USER_ID);
   }else{
     let cursor="";
@@ -37,6 +39,10 @@ export async function sendLineWorks(env,text,request=fetch){
       userIds.push(...selectRecipientUserIds(data.users).filter(id=>!userIds.includes(id)));
       cursor=data.responseMetaData?.nextCursor??"";
     } while(cursor);
+    if(scope==="others"&&env.LINEWORKS_USER_ID){
+      const ownerIndex=userIds.indexOf(env.LINEWORKS_USER_ID);
+      if(ownerIndex>=0)userIds.splice(ownerIndex,1);
+    }
   }
   if(!userIds.length)throw new Error("lineworks-users:empty");
   const failures=[];
