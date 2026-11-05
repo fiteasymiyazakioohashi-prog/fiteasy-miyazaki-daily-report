@@ -24,16 +24,20 @@ export async function sendLineWorks(env,text,request=fetch){
   const {access_token}=await tokenRes.json();
   const headers={Authorization:`Bearer ${access_token}`};
   const userIds=[];
-  let cursor="";
-  do {
-    const params=new URLSearchParams({count:"100"});
-    if(cursor)params.set("cursor",cursor);
-    const usersRes=await request(`https://www.worksapis.com/v1.0/users?${params}`,{headers});
-    if(!usersRes.ok)throw new Error(`lineworks-users:${usersRes.status}:${await usersRes.text()}`);
-    const data=await usersRes.json();
-    userIds.push(...selectRecipientUserIds(data.users).filter(id=>!userIds.includes(id)));
-    cursor=data.responseMetaData?.nextCursor??"";
-  } while(cursor);
+  if(env.GITHUB_EVENT_NAME==="workflow_dispatch"&&env.LINEWORKS_USER_ID){
+    userIds.push(env.LINEWORKS_USER_ID);
+  }else{
+    let cursor="";
+    do {
+      const params=new URLSearchParams({count:"100"});
+      if(cursor)params.set("cursor",cursor);
+      const usersRes=await request(`https://www.worksapis.com/v1.0/users?${params}`,{headers});
+      if(!usersRes.ok)throw new Error(`lineworks-users:${usersRes.status}:${await usersRes.text()}`);
+      const data=await usersRes.json();
+      userIds.push(...selectRecipientUserIds(data.users).filter(id=>!userIds.includes(id)));
+      cursor=data.responseMetaData?.nextCursor??"";
+    } while(cursor);
+  }
   if(!userIds.length)throw new Error("lineworks-users:empty");
   const failures=[];
   for(const userId of userIds){
