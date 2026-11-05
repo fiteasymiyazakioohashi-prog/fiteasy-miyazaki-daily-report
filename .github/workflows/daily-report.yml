@@ -7,6 +7,16 @@ on:
     # 19:20の予備実行。送信済みならプログラム側で終了する
     - cron: "20 10 * * *"
   workflow_dispatch:
+    inputs:
+      recipient_scope:
+        description: "送信先"
+        required: true
+        default: owner
+        type: choice
+        options:
+          - owner
+          - others
+          - all
 
 permissions:
   contents: write
@@ -37,6 +47,7 @@ jobs:
           LINEWORKS_PRIVATE_KEY: ${{ secrets.LINEWORKS_PRIVATE_KEY }}
           LINEWORKS_BOT_ID: ${{ secrets.LINEWORKS_BOT_ID }}
           LINEWORKS_USER_ID: ${{ secrets.LINEWORKS_USER_ID }}
+          LINEWORKS_RECIPIENT_SCOPE: ${{ inputs.recipient_scope }}
         run: node src/index.mjs
       - name: Persist latest counters
         run: |
