@@ -1,11 +1,7 @@
 name: Daily report to LINE WORKS
 
 on:
-  schedule:
-    # 19:00 Asia/Tokyo = 10:00 UTC
-    - cron: "0 10 * * *"
-    # 19:20の予備実行。送信済みならプログラム側で終了する
-    - cron: "20 10 * * *"
+  # Started once daily at 19:00 JST by Cloudflare.
   workflow_dispatch:
     inputs:
       recipient_scope:
@@ -20,6 +16,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 concurrency:
   group: daily-report
@@ -34,7 +31,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Check today's snapshot
+        id: daily
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, appendFileSync } from 'node:fs';
+          const day = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
+          const history = JSON.parse(readFileSync('data/history.json', 'utf8'));
+          appendFileSync(process.env.GITHUB_OUTPUT, `collected=${Boolean(history[day]?.sentAt)}\n`);
+          NODE
       - name: Collect and send report
+        if: steps.daily.outputs.collected != 'true'
         env:
           MEMBERS_ENDPOINT: ${{ secrets.MEMBERS_ENDPOINT }}
           MEMBERS_TOKEN: ${{ secrets.MEMBERS_TOKEN }}
@@ -50,9 +57,41 @@ jobs:
           LINEWORKS_RECIPIENT_SCOPE: ${{ inputs.recipient_scope }}
         run: node src/index.mjs
       - name: Persist latest counters
+        if: steps.daily.outputs.collected != 'true'
         run: |
           git config user.name "daily-report-bot"
           git config user.email "daily-report-bot@users.noreply.github.com"
           git add -f data/latest.json data/history.json data/instagram-insights.csv data/instagram-insights.md docs/index.html
           git diff --cached --quiet || git commit -m "chore: update daily report counters"
           git push
+      - name: Publish daily snapshot to attendance
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          const endpoint = 'https://shift-note-sekiya-260917.fiteasy-miyazakioohashi.workers.dev/api/sns-reports/ingest';
+          const day = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
+          const yesterday = new Date(day + 'T00:00:00Z');
+          yesterday.setUTCDate(yesterday.getUTCDate() - 1);
+          const previousDay = yesterday.toISOString().slice(0, 10);
+          const history = JSON.parse(readFileSync('data/history.json', 'utf8'));
+          if (!history[day]?.collectedAt) throw new Error('Today has no collected snapshot');
+          const tokenUrl = new URL(process.env.ACTIONS_ID_TOKEN_REQUEST_URL);
+          tokenUrl.searchParams.set('audience', endpoint);
+          const proof = await fetch(tokenUrl, {
+            headers: { Authorization: `Bearer ${process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN}` },
+            signal: AbortSignal.timeout(15000)
+          });
+          if (!proof.ok) throw new Error(`Workflow identity unavailable: ${proof.status}`);
+          const { value } = await proof.json();
+          const payload = Object.fromEntries([previousDay, day].filter(d => history[d]).map(d => [d, history[d]]));
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-sns-workflow-token': value },
+            body: JSON.stringify(payload),
+            signal: AbortSignal.timeout(15000)
+          });
+          if (!response.ok) throw new Error(`Attendance snapshot failed: ${response.status}`);
+          const result = await response.json();
+          if (!result.ok) throw new Error('Attendance snapshot was not accepted');
+          console.log(result.alreadySaved ? 'Daily snapshot already saved; no overwrite.' : 'Daily snapshot saved.');
+          NODE
