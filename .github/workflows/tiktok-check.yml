@@ -1,0 +1,29 @@
+name: TikTok collection check (no send)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regression tests
+        run: node --test test/tiktok.test.mjs
+      - name: Read public TikTok data without saving or sending
+        env:
+          TIKTOK_USERNAME: ${{ vars.TIKTOK_USERNAME }}
+        run: |
+          node --input-type=module <<'JS'
+          import { collectTikTok } from './src/collectors.mjs';
+          const now = new Date();
+          const result = await collectTikTok({TIKTOK_USERNAME:process.env.TIKTOK_USERNAME || 'fiteasy_miyazaki_ohashi'}, now);
+          console.log(JSON.stringify({checkedAt:now.toISOString(),...result},null,2));
+          if(result.tiktokPostsToday === null || result.tiktokFollowers === null) {
+            throw new Error('TikTok data incomplete: no report was sent or saved.');
+          }
+          JS
