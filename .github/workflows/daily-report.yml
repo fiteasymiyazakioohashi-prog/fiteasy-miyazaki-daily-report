@@ -10,6 +10,7 @@ on:
         default: owner
         type: choice
         options:
+          - late_and_owner
           - owner
           - others
           - all
@@ -98,10 +99,16 @@ jobs:
           const result = await response.json();
           if (!result.ok) throw new Error('Attendance snapshot was not accepted');
           console.log(result.alreadySaved ? 'Daily snapshot already saved; no overwrite.' : 'Daily snapshot saved.');
+          let recipients;
+          if (process.env.LINEWORKS_RECIPIENT_SCOPE === 'late_and_owner') {
+            if (result.delivery?.date !== day || result.delivery?.scope !== 'late_and_owner' || !result.delivery?.recipients?.length) throw new Error('Late shift recipients unavailable');
+            recipients = result.delivery.recipients;
+            console.log('Daily recipients (late shift + owner): ' + recipients.map(r => r.name).join('・'));
+          }
           if (process.env.ALREADY_COLLECTED !== 'true') {
             if (result.report?.status !== 'ready' || result.report.date !== day || !result.report.text) throw new Error('Combined attendance report unavailable');
             if (process.env.LINEWORKS_RECIPIENT_SCOPE === 'owner' && !process.env.LINEWORKS_USER_ID) throw new Error('Owner recipient is not configured');
-            await sendLineWorks(process.env, result.report.text);
+            await sendLineWorks(process.env, result.report.text, fetch, recipients);
           } else {
             console.log('Existing daily run: no duplicate notification.');
           }
