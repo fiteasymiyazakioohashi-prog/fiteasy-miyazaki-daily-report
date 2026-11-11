@@ -14,7 +14,11 @@ export function selectRecipientUserIds(users){
   }
   return ids;
 }
-export async function sendLineWorks(env,text,request=fetch){
+export async function sendLineWorks(env,text,request=fetch,recipients){
+  const scope=env.LINEWORKS_RECIPIENT_SCOPE||(env.GITHUB_EVENT_NAME==="workflow_dispatch"?"owner":"all");
+  if(!["owner","others","all","late_and_owner"].includes(scope))throw new Error("Unknown recipient scope");
+  if(scope==="owner"&&!env.LINEWORKS_USER_ID)throw new Error("Owner recipient missing");
+  if(scope==="late_and_owner"&&(!Array.isArray(recipients)||!recipients.length||recipients.some(r=>typeof r.userId!=="string"||!r.userId.trim())||!env.LINEWORKS_USER_ID||!recipients.some(r=>r.userId===env.LINEWORKS_USER_ID)))throw new Error("Late shift recipients and owner must be provided by attendance server");
   const required=["LINEWORKS_CLIENT_ID","LINEWORKS_CLIENT_SECRET","LINEWORKS_SERVICE_ACCOUNT","LINEWORKS_PRIVATE_KEY","LINEWORKS_BOT_ID"];
   for(const k of required)if(!env[k])throw new Error(`missing:${k}`);
   const now=Math.floor(Date.now()/1000),body=`${b64({alg:"RS256",typ:"JWT"})}.${b64({iss:env.LINEWORKS_CLIENT_ID,sub:env.LINEWORKS_SERVICE_ACCOUNT,iat:now,exp:now+300})}`;
@@ -24,9 +28,9 @@ export async function sendLineWorks(env,text,request=fetch){
   const {access_token}=await tokenRes.json();
   const headers={Authorization:`Bearer ${access_token}`};
   const userIds=[];
-  const manual=env.GITHUB_EVENT_NAME==="workflow_dispatch";
-  const scope=manual?(env.LINEWORKS_RECIPIENT_SCOPE||"owner"):"all";
-  if(scope==="owner"&&env.LINEWORKS_USER_ID){
+  if(scope==="late_and_owner"){
+    userIds.push(...new Set(recipients.map(r=>r.userId)));
+  }else if(scope==="owner"&&env.LINEWORKS_USER_ID){
     userIds.push(env.LINEWORKS_USER_ID);
   }else{
     let cursor="";
