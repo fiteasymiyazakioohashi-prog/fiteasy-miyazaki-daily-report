@@ -13,5 +13,10 @@
     "status": "sent",
     "attemptedAt": "2026-11-14T10:01:10.280Z",
     "sentAt": "2026-11-14T10:01:13.332Z"
+  },
+  "2026-11-15:late_and_owner": {
+    "status": "sent",
+    "attemptedAt": "2026-11-15T10:01:01.492Z",
+    "sentAt": "2026-11-15T10:01:04.932Z"
   }
 }
