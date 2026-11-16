@@ -132,5 +132,15 @@
     "tiktokPostsToday": 0,
     "sentAt": "2026-11-15T10:00:37.681Z",
     "collectedAt": "2026-11-15T10:00:37.681Z"
+  },
+  "2026-11-16": {
+    "instagramFollowing": 1202,
+    "instagramFollowers": 651,
+    "instagramPostsToday": 1,
+    "instagramStoriesToday": 2,
+    "tiktokFollowers": 28,
+    "tiktokPostsToday": 0,
+    "sentAt": "2026-11-16T10:00:46.535Z",
+    "collectedAt": "2026-11-16T10:00:46.535Z"
   }
 }
