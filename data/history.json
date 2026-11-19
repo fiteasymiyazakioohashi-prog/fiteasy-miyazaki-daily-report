@@ -162,5 +162,15 @@
     "tiktokPostsToday": 2,
     "sentAt": "2026-11-18T10:00:43.686Z",
     "collectedAt": "2026-11-18T10:00:43.686Z"
+  },
+  "2026-11-19": {
+    "instagramFollowing": 1313,
+    "instagramFollowers": 682,
+    "instagramPostsToday": 1,
+    "instagramStoriesToday": 2,
+    "tiktokFollowers": 39,
+    "tiktokPostsToday": 1,
+    "sentAt": "2026-11-19T10:00:58.970Z",
+    "collectedAt": "2026-11-19T10:00:58.970Z"
   }
 }
