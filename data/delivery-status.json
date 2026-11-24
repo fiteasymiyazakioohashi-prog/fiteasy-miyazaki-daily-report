@@ -58,5 +58,10 @@
     "status": "sent",
     "attemptedAt": "2026-11-23T10:01:14.835Z",
     "sentAt": "2026-11-23T10:01:17.585Z"
+  },
+  "2026-11-24:late_and_owner": {
+    "status": "sent",
+    "attemptedAt": "2026-11-24T10:01:09.461Z",
+    "sentAt": "2026-11-24T10:01:12.881Z"
   }
 }
